@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE } from "../api";
 
 export default function AlertPanel() {
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
     const fetch = () =>
-      axios.get("http://localhost:5000/api/alerts")
+      axios.get(`${API_BASE}/api/alerts`)
         .then(r => setAlerts(r.data))
         .catch(() => {});
     fetch();
@@ -15,9 +16,9 @@ export default function AlertPanel() {
   }, []);
 
   const triggerAlert = () =>
-    axios.post("http://localhost:5000/api/alert", {
+    axios.post(`${API_BASE}/api/alert`, {
       type: "manuelle", message: "Alerte déclenchée depuis le dashboard", niveau: "urgence"
-    }).then(() => axios.get("http://localhost:5000/api/alerts").then(r => setAlerts(r.data)));
+    }).then(() => axios.get(`${API_BASE}/api/alerts`).then(r => setAlerts(r.data)));
 
   return (
     <div className="card">

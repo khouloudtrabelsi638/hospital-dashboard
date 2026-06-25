@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE } from "../api";
 
 export default function PatientCard() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
     const fetch = () =>
-      axios.get("http://localhost:5000/api/data?limit=1")
+      axios.get(`${API_BASE}/api/data?limit=1`)
         .then(r => setData(r.data[0]))
         .catch(() => {});
     fetch();

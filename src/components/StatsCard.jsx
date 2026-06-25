@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE } from "../api";
 
 export default function StatsCard() {
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
     const fetch = () =>
-      axios.get("http://localhost:5000/api/stats")
+      axios.get(`${API_BASE}/api/stats`)
         .then(r => setStats(r.data))
         .catch(() => {});
     fetch();

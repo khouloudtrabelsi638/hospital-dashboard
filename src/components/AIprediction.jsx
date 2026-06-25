@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE } from "../api";
 
 const COLORS = { Normal: "#22c55e", Attention: "#f97316", Critique: "#ef4444" };
 const ICONS  = { Normal: "🟢", Attention: "🟠", Critique: "🔴" };
@@ -9,7 +10,7 @@ export default function AIprediction() {
 
   useEffect(() => {
     const fetch = () =>
-      axios.get("http://localhost:5000/api/predict")
+      axios.get(`${API_BASE}/api/predict`)
         .then(r => setPred(r.data))
         .catch(() => {});
     fetch();

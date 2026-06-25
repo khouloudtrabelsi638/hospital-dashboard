@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import PatientCard  from "./components/PatientCard";
+import RoomMonitor  from "./components/RoomMonitor";
+import AIprediction from "./components/AIprediction";
+import AlertPanel   from "./components/AlertPanel";
+import Charts       from "./components/Charts";
+import StatsCard    from "./components/StatsCard";
+import "./App.css";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="app">
+      <header>
+        <span>🏥</span>
+        <h1>Smart Hospital — Tableau de bord</h1>
+        <span style={{ fontSize: 13, opacity: 0.7 }}>Mise à jour toutes les 5s</span>
       </header>
+      <div className="grid">
+        <PatientCard />
+        <RoomMonitor />
+        <AIprediction />
+        <AlertPanel />
+        <StatsCard />
+        <Charts />
+      </div>
     </div>
   );
 }
-
-export default App;

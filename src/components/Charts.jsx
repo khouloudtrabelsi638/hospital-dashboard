@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { API_BASE } from "../api";
+import { api } from "../api";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid,
   Tooltip, Legend, ResponsiveContainer
@@ -11,7 +10,7 @@ export default function Charts() {
 
   useEffect(() => {
     const fetch = () =>
-      axios.get(`${API_BASE}/api/data?limit=20`)
+      api.get("/api/data?limit=20")
         .then(r => setData(r.data.reverse().map(d => ({
           ...d,
           time: d.timestamp?.slice(11, 19) || ""

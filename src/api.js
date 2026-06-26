@@ -5,5 +5,10 @@ import axios from "axios";
 export const API_BASE =
   process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-// Évite la page d'avertissement de ngrok (sinon il renvoie du HTML au lieu du JSON)
-axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
+// Instance axios avec l'en-tête anti-avertissement ngrok "cousu" dedans.
+// Tous les appels passent par cette instance → ngrok ne peut plus afficher
+// sa page "You are about to visit...".
+export const api = axios.create({
+  baseURL: API_BASE,
+  headers: { "ngrok-skip-browser-warning": "true" },
+});

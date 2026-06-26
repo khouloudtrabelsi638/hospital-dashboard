@@ -1,0 +1,122 @@
+/* =========================================================
+   extras.css (PRO) — grille alignée, en-tête soigné, bandeau,
+   graphiques, mode sombre, chat. Importé par App.jsx.
+   ========================================================= */
+
+/* ===== En-tête professionnel ===== */
+header { gap: 14px; padding: 16px 28px; }
+header .logo { font-size: 26px; line-height: 1; }
+header .head-titles { flex: 1; }
+header .head-titles h1 {
+  font-size: 22px; font-weight: 700; letter-spacing: 0.2px; line-height: 1.1;
+}
+header .head-titles p {
+  font-size: 12px; opacity: 0.65; margin-top: 2px; font-weight: 400;
+}
+header .live-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 500;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px; padding: 5px 12px;
+}
+header .live-pill::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%;
+  background: #4ade80; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+  animation: hp 1.8s ease-out infinite;
+}
+@keyframes hp {
+  0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+  70% { box-shadow: 0 0 0 7px rgba(74, 222, 128, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+
+/* ===== GRILLE PRO : 3 colonnes alignées ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  padding: 24px;
+  max-width: 1440px;
+  margin: 0 auto;
+  align-items: stretch;          /* cartes de même hauteur par ligne */
+}
+.grid > .card {
+  height: 100%;                  /* la carte remplit sa cellule */
+  display: flex;
+  flex-direction: column;
+}
+.grid > .card > h2 { flex: 0 0 auto; }
+
+/* Les graphiques et le chat occupent toute la largeur */
+.charts-card, .chat-card { grid-column: 1 / -1; }
+
+/* Responsive : 2 colonnes puis 1 colonne */
+@media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 680px)  { .grid { grid-template-columns: 1fr; padding: 16px; } }
+
+/* ===== Bandeau d'état global ===== */
+.status-banner {
+  padding: 13px 24px; font-weight: 700; font-size: 16px;
+  text-align: center; letter-spacing: 0.3px; color: #fff;
+}
+.sb-ok   { background: linear-gradient(90deg, #16a34a, #22c55e); }
+.sb-warn { background: linear-gradient(90deg, #ea580c, #f97316); }
+.sb-crit { background: linear-gradient(90deg, #b91c1c, #ef4444); animation: sb-blink 1s steps(2) infinite; }
+@keyframes sb-blink { 50% { opacity: 0.55; } }
+
+/* ===== Bouton mode sombre / export ===== */
+.theme-btn {
+  background: rgba(255, 255, 255, 0.12); color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 8px;
+  padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: background 0.2s; white-space: nowrap;
+}
+.theme-btn:hover { background: rgba(255, 255, 255, 0.22); }
+
+/* ===== Liste d'alertes : scroll interne ===== */
+.alert-list { max-height: 240px; overflow-y: auto; padding-right: 4px; }
+
+/* ===== Rangée de graphiques ===== */
+.charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+@media (max-width: 760px) { .charts-row { grid-template-columns: 1fr; } }
+
+/* ===== Chat assistant IA ===== */
+.chat-log {
+  max-height: 240px; overflow-y: auto; display: flex; flex-direction: column;
+  gap: 8px; padding: 4px; margin-bottom: 10px;
+}
+.chat-msg {
+  padding: 9px 13px; border-radius: 12px; font-size: 14px; line-height: 1.45;
+  max-width: 82%; white-space: pre-wrap;
+}
+.chat-msg.user      { align-self: flex-end; background: #0e6377; color: #fff; border-bottom-right-radius: 4px; }
+.chat-msg.assistant { align-self: flex-start; background: #eef2f7; color: #1e293b; border-bottom-left-radius: 4px; }
+.chat-input { display: flex; gap: 8px; }
+.chat-input input {
+  flex: 1; padding: 10px 12px; border: 1px solid #cbd5e1;
+  border-radius: 10px; font-size: 14px; outline: none;
+}
+.chat-input input:focus { border-color: #0ea5e9; }
+.chat-input button {
+  background: #0e6377; color: #fff; border: none; border-radius: 10px;
+  padding: 0 18px; font-weight: 600; cursor: pointer;
+}
+.chat-input button:disabled { opacity: 0.5; cursor: default; }
+
+/* ===== Mode sombre ===== */
+body.dark { background: #0b1220; color: #e2e8f0; }
+body.dark::before {
+  background:
+    radial-gradient(40rem 40rem at 12% -8%,  rgba(14, 165, 233, 0.15), transparent 60%),
+    radial-gradient(38rem 38rem at 92% 4%,   rgba(99, 102, 241, 0.13), transparent 60%),
+    radial-gradient(36rem 36rem at 78% 100%, rgba(34, 197, 94, 0.08),  transparent 60%),
+    linear-gradient(180deg, #0b1220, #0f172a);
+}
+body.dark .card { background: rgba(30, 41, 59, 0.72); border-color: rgba(148, 163, 184, 0.18); }
+body.dark .card h2          { color: #cbd5e1; }
+body.dark .row-stat         { color: #cbd5e1; border-color: rgba(148, 163, 184, 0.15); }
+body.dark .row-stat strong  { color: #f1f5f9; }
+body.dark .ts               { color: #94a3b8; }
+body.dark .chat-msg.assistant { background: #334155; color: #e2e8f0; }
+body.dark .chat-input input   { background: #1e293b; color: #e2e8f0; border-color: #475569; }

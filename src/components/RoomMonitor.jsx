@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { API_BASE } from "../api";
+import { api } from "../api";
 
 export default function RoomMonitor() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
     const fetch = () =>
-      axios.get(`${API_BASE}/api/data?limit=1`)
+      api.get("/api/data?limit=1")
         .then(r => setData(r.data[0]))
         .catch(() => {});
     fetch();
